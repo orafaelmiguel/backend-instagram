@@ -12,6 +12,14 @@ module.exports = {
         } = req.body
 
         try {
+            const userAlreadyExists = await User.findOne({
+                username
+            })
+
+            if (userAlreadyExists) return res.status(200).send({
+                message: 'User already exists. Try a different one'
+            })
+
             const createdUser = await User.create({
                 username,
                 password,
