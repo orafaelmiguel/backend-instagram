@@ -5,6 +5,7 @@ const router = Router()
 
 // registro
 router.post('/users', UserController.createUser)
+router.get('/users', UserController.listUser)
 // login
 // logout
 // feed
