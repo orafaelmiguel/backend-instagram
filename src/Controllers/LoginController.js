@@ -2,7 +2,7 @@ const User = require('../Models/User')
 
 module.exports = {
     async login(req, res) {
-        const { username, pasword } = req.body
+        const { username, password } = req.body
 
         try {
             const validUsername = await User.findOne({
@@ -12,8 +12,18 @@ module.exports = {
             if (!validUsername) return res.status(400).send({
                 message: 'User does not exist'
             })
+                                        // consulta banco de dados
+            const validPassword = await User.findOne({
+                password: password
+            }).where({
+                username: username
+            })
 
-            return
+            if (!validPassword) return res.status(400).send('Invalid Password')
+
+            const loggedIn = validPassword
+
+            return res.status(200).send({ message: 'Success' , data: loggedIn})
         } catch (error) {
             return res.status(400).send(error)
         }
