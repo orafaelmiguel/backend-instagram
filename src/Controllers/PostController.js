@@ -25,8 +25,17 @@ module.exports = {
         }
     },
 
-    async listAllPosts(req, res) {
-
+    async listPosts(req, res) {
+        try {
+            const allPosts = await Post.find()
+            
+            return res.status(200).send({
+                message: 'All Posts',
+                data: allPosts
+            })
+        } catch (error) {
+            return res.status(400).send(error)
+        }
     },
 
     async deletePost(req, res) {
