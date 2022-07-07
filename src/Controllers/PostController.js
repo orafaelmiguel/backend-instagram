@@ -28,6 +28,7 @@ module.exports = {
     async listPosts(req, res) {
         try {
             const allPosts = await Post.find()
+                .populate('user')
             
             return res.status(200).send({
                 message: 'All Posts',
