@@ -17,12 +17,11 @@ router.get('/posts', PostController.listPosts)
 router.delete('/posts/:post_id', PostController.deletePost)
 router.put('/posts/:post_id', PostController.editPost)
 // like
-// deletar foto
 // editar foto
 // ver perfil
 
 router.get('/', (req, res) => {
-    res.send('Hello World')
+    res.send('instagram')
 })
 
 module.exports = router
