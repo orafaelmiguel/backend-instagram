@@ -6,7 +6,7 @@ const ProfileController = require('../Controllers/ProfileController')
 
 const router = Router()
 
-// Rotas linkadas aos arquivos na posta Controllers
+// Rotas linkadas aos arquivos na pasta Controllers
 
 router.post('/users', UserController.createUser)
 router.get('/users', UserController.listUser)
@@ -19,9 +19,6 @@ router.delete('/posts/:post_id', PostController.deletePost)
 router.put('/posts/:post_id', PostController.editPost)
 
 router.get('/users/:user_id', ProfileController.getProfile)
-// like
-// editar foto
-// ver perfil
 
 router.get('/', (req, res) => {
     res.send('instagram')
