@@ -3,6 +3,7 @@ const LoginController = require('../Controllers/LoginController')
 const PostController = require('../Controllers/PostController')
 const UserController = require('../Controllers/UserController')
 const ProfileController = require('../Controllers/ProfileController')
+const LikeController = require('../Controllers/LikeController')
 
 const router = Router()
 
@@ -20,6 +21,8 @@ router.put('/posts/:post_id', PostController.editPost)
 
 router.get('/users/:user_id', ProfileController.getProfile)
 
+router.post('/posts/:post_id/like', LikeController.likePost)
+router.post('/posts/:post_id/dislike', LikeController.dislikePost)
 router.get('/', (req, res) => {
     res.send('instagram')
 })
