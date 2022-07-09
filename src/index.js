@@ -10,7 +10,7 @@ const app = express()
 // conexão com banco de dados
 mongoose.connect(mongoConnection, {
     useUnifiedTopology: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
 }, () => console.log('Connected to database'))
 
 app.use(express.json())
