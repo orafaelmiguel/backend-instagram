@@ -46,8 +46,8 @@ module.exports = {
 
         try {
             // Proibindo qualquer usuário de deletar o post
-            const belongToUser = await Post.findOne({ user: user_id })
-            if (!belongToUser) return res.status(400).send({ message: "You don't have permission to do this" })
+            const belongToUser = await Post.findOne({ user: user_id }).where({ _id: post_id })
+            if (!belongToUser) return res.status(400).send({ message: "You don't have permission to do this." })
 
             const postExists = await Post.findById(post_id)
             if (!postExists) return res.status(400).send('Post does not exists')
@@ -66,8 +66,13 @@ module.exports = {
     async editPost(req, res) {
         const { description } = req.body
         const { post_id } = req.params
+        const { user_id } = req.headers
 
         try {
+            // Proibindo qualquer usuário de editar o post
+            const belongToUser = await Post.findOne({ user: user_id }).where({ _id: post_id })
+            if(!belongToUser) return res.status(400).send({ message: "You don't have permissions to do this." })
+
             const existsPost = await Post.findById(post_id)
             if (!existsPost) return res.status(400).send({ message: 'Post does not exists' })
 
