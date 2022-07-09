@@ -1,4 +1,5 @@
 const Post = require('../Models/Post')
+const { findById } = require('../Models/User')
 
 module.exports = {
     async createPost(req, res) {
@@ -40,7 +41,18 @@ module.exports = {
     },
 
     async deletePost(req, res) {
+        const { post_id } = req.params
 
+        try {
+            const deletedPost = await Post.findByIdAndDelete(post_id)
+
+            return res.status(200).send({
+                message: 'Deleted successfully',
+                data: deletedPost
+            })
+        } catch (error) {
+            return res.status(400).send(error)
+        }
     },
 
     async editPost(req, res) {
