@@ -2,6 +2,7 @@ const { Router } = require('express') // const router = require('express').Route
 const LoginController = require('../Controllers/LoginController')
 const PostController = require('../Controllers/PostController')
 const UserController = require('../Controllers/UserController')
+const ProfileController = require('../Controllers/ProfileController')
 
 const router = Router()
 
@@ -16,6 +17,8 @@ router.post('/posts', PostController.createPost)
 router.get('/posts', PostController.listPosts)
 router.delete('/posts/:post_id', PostController.deletePost)
 router.put('/posts/:post_id', PostController.editPost)
+
+router.get('/users/:user_id', ProfileController.getProfile)
 // like
 // editar foto
 // ver perfil
