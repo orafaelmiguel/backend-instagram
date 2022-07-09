@@ -42,8 +42,16 @@ module.exports = {
 
     async deletePost(req, res) {
         const { post_id } = req.params
+        const { user_id } = req.headers
 
         try {
+            // Proibindo qualquer usuário de deletar o post
+            const belongToUser = await Post.findOne({ user: user_id })
+            if (!belongToUser) return res.status(400).send('Operation not allowed')
+
+            const postExists = await Post.findById(post_id)
+            if (!postExists) return res.status(400).send('Post does not exists')
+
             const deletedPost = await Post.findByIdAndDelete(post_id)
 
             return res.status(200).send({
@@ -51,11 +59,19 @@ module.exports = {
                 data: deletedPost
             })
         } catch (error) {
-            return res.status(400).send(error)
+            return res.status(404).send({ message: 'System Error' })
         }
     },
 
     async editPost(req, res) {
+        const { description } = req.body
 
+        try {
+            const editPost = await Post.findById(post_id)
+
+            return res.status(200).send(editPost)
+        } catch (error) {
+            return res.status(400).send({ message: 'Code error' })
+        }
     }
 }
