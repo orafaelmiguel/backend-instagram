@@ -47,7 +47,7 @@ module.exports = {
         try {
             // Proibindo qualquer usuário de deletar o post
             const belongToUser = await Post.findOne({ user: user_id })
-            if (!belongToUser) return res.status(400).send('Operation not allowed')
+            if (!belongToUser) return res.status(400).send({ message: "You don't have permission to do this" })
 
             const postExists = await Post.findById(post_id)
             if (!postExists) return res.status(400).send('Post does not exists')
@@ -65,11 +65,22 @@ module.exports = {
 
     async editPost(req, res) {
         const { description } = req.body
+        const { post_id } = req.params
 
         try {
-            const editPost = await Post.findById(post_id)
+            const existsPost = await Post.findById(post_id)
+            if (!existsPost) return res.status(400).send({ message: 'Post does not exists' })
 
-            return res.status(200).send(editPost)
+            const editPost = await Post.findByIdAndUpdate(post_id, {
+                description
+            }, {
+                new: true 
+            })
+
+            return res.status(200).send({
+                message: 'Update Successfully',
+                data: editPost
+            })
         } catch (error) {
             return res.status(400).send({ message: 'Code error' })
         }
