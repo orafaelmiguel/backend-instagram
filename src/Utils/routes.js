@@ -7,8 +7,6 @@ const LikeController = require('../Controllers/LikeController')
 
 const router = Router()
 
-// Rotas linkadas aos arquivos na pasta Controllers
-
 router.post('/users', UserController.createUser)
 router.get('/users', UserController.listUser)
 
@@ -23,8 +21,5 @@ router.get('/users/:user_id', ProfileController.getProfile)
 
 router.post('/posts/:post_id/like', LikeController.likePost)
 router.post('/posts/:post_id/dislike', LikeController.dislikePost)
-router.get('/', (req, res) => {
-    res.send('instagram')
-})
 
 module.exports = router

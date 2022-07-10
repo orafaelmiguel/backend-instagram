@@ -12,12 +12,13 @@ module.exports = {
             if (likedPost.likes.includes(user_id)) return res.status(400).send({ message: 'Post already liked' })
 
             likedPost.likes.push(user_id)
-
-            // likedPost.likes.pull(user_id) LIMPAR LIKES
             
             await likedPost.save()
 
-            return res.status(200).send(likedPost)
+            return res.status(200).send({
+                message: 'Post liked',
+                likedPost
+            })
         } catch (error) {
             return res.status(400).send(error)
         }
@@ -36,7 +37,10 @@ module.exports = {
             dislikedPost.likes.pull(user_id)
             await dislikedPost.save()
 
-            return res.status(200).send(dislikedPost)
+            return res.status(200).send({
+                message: 'Unliked post',
+                dislikedPost
+            })
         } catch (error) {
             return res.status(200).send(error)
         }

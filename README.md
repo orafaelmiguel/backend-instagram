@@ -1,2 +1,4 @@
-# instagram-backend
+# ENV VARIABLES
+
+MONGO_URI = ''
  
