@@ -7,6 +7,10 @@ const LikeController = require('../Controllers/LikeController')
 
 const router = Router()
 
+router.get('/', (req, res) => {
+    res.send('Instagram')
+})
+
 router.post('/users', UserController.createUser)
 router.get('/users', UserController.listUser)
 
