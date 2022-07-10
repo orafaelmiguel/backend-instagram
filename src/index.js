@@ -12,12 +12,16 @@ const app = express()
 mongoose.connect(mongoConnection, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-}, () => console.log('Connected to database'))
+})
+.then(() => {
+    console.log('connected to database')
+    app.listen(process.env.PORT || 3000, () => {
+        console.log('Server running')
+    })
+})
+.catch((error) => {console.log(error)})
 
 app.use(cors)
 app.use(express.json())
 app.use(router)
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Server running')
-})
